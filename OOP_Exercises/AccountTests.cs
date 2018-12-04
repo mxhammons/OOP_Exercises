@@ -18,7 +18,7 @@ namespace OOP_Exersizes
         [OneTimeSetUp]
         public void FindAccount()
         {
-            AccountType = System.Reflection.Assembly.GetExecutingAssembly().GetModule("OOP_Exersizes.dll").GetTypes().SingleOrDefault(t => t.Name == "Account");
+            AccountType = System.Reflection.Assembly.GetExecutingAssembly().GetModule("OOP_Exercises.dll").GetTypes().SingleOrDefault(t => t.Name == "Account");
         }
         [Test]
         public void AccountClassExists()

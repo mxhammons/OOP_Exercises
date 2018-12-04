@@ -18,7 +18,7 @@ namespace OOP_Exersizes
         [OneTimeSetUp]
         public void FindCircle()
         {
-            CircleClass = System.Reflection.Assembly.GetExecutingAssembly().GetModule("OOP_Exersizes.dll").GetTypes().SingleOrDefault(t => t.Name == "Circle");
+            CircleClass = System.Reflection.Assembly.GetExecutingAssembly().GetModule("OOP_Exercises.dll").GetTypes().SingleOrDefault(t => t.Name == "Circle");
 
         }
         [Test]
