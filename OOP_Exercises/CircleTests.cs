@@ -42,6 +42,13 @@ namespace OOP_Exersizes
             Assert.AreEqual(1, GetCircle().Radius, "Radius Default value was incorrect.");
         }
         [Test]
+        public void RadiusCanBeChanged()
+        {
+            var circ = GetCircle();
+            circ.Radius = 10;
+            Assert.AreEqual(10, circ.Radius);
+        }
+        [Test]
         public void SettingNegativeRadiusThrowsException()
         {
             Assert.Throws<Exception>(() => GetCircle().Radius = -1);
