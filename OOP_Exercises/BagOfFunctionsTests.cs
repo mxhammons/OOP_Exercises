@@ -142,17 +142,17 @@ namespace OOP_Exercises
         [Test]
         public void ImmutablePushReturnsArrayWithElementAdded()
         {
-            var toArray = BagOfFunctionsType.GetMethod("ImmutablePush");
-            var result = toArray.Invoke(null, new object[] { new object[] { 1, 2 }, 3 });
+            var immutablePush = BagOfFunctionsType.GetMethod("ImmutablePush");
+            var result = immutablePush.Invoke(null, new object[] { new object[] { 1, 2 }, 3 });
             Assert.IsTrue(result is object[]);
             Assert.AreEqual(3, (result as object[]).Last(), "element was not added to array");
         }
         [Test]
         public void ImmutablePushLeavesOriginalArrayIntact()
         {
-            var toArray = BagOfFunctionsType.GetMethod("ImmutablePush");
+            var immutablePush = BagOfFunctionsType.GetMethod("ImmutablePush");
             var input = new object[] { 1, 2 };
-            toArray.Invoke(null, new object[] { input, 3 });
+            immutablePush.Invoke(null, new object[] { input, 3 });
             Assert.AreEqual(2, input.Length, "length should not change");
             Assert.AreEqual(1, Convert.ToInt32(input.First()), "first element should not change");
             Assert.AreEqual(2, Convert.ToInt32(input.Skip(1).First()), "second element should not change");
@@ -165,8 +165,8 @@ namespace OOP_Exercises
         [Test]
         public void ImmutablePopReturnsArrayWithElementAdded()
         {
-            var toArray = BagOfFunctionsType.GetMethod("ImmutablePop");
-            var result = toArray.Invoke(null, new object[] { new object[] { 1, 2 } });
+            var immutablePop = BagOfFunctionsType.GetMethod("ImmutablePop");
+            var result = immutablePop.Invoke(null, new object[] { new object[] { 1, 2 } });
             Assert.IsTrue(result is object[]);
             Assert.AreEqual(1, (result as object[]).Length, "item should have been removed");
             Assert.AreEqual(1, (result as object[]).Last(), "element was not removed");
@@ -174,12 +174,99 @@ namespace OOP_Exercises
         [Test]
         public void ImmutablePopLeavesOriginalArrayIntact()
         {
-            var toArray = BagOfFunctionsType.GetMethod("ImmutablePop");
+            var immutablePop = BagOfFunctionsType.GetMethod("ImmutablePop");
             var input = new object[] { 1, 2 };
-            toArray.Invoke(null, new object[] { input});
+            immutablePop.Invoke(null, new object[] { input });
             Assert.AreEqual(2, input.Length, "length should not change");
             Assert.AreEqual(1, Convert.ToInt32(input.First()), "first element should not change");
             Assert.AreEqual(2, Convert.ToInt32(input.Skip(1).First()), "second element should not change");
+        }
+        [Test]
+        public void ImmutableShiftExists()
+        {
+            Assert.IsNotNull(BagOfFunctionsType.GetMethod("ImmutableShift"));
+        }
+        [Test]
+        public void ImmutableShiftReturnsArrayWithElementAdded()
+        {
+            var immutableShift = BagOfFunctionsType.GetMethod("ImmutableShift");
+            var result = immutableShift.Invoke(null, new object[] { new object[] { 1, 2 } });
+            Assert.IsTrue(result is object[]);
+            Assert.AreEqual(1, (result as object[]).Length, "first item should have been removed");
+            Assert.AreEqual(2, (result as object[]).Last(), "first element was not removed");
+        }
+        [Test]
+        public void ImmutableShiftLeavesOriginalArrayIntact()
+        {
+            var immutableShift = BagOfFunctionsType.GetMethod("ImmutableShift");
+            var input = new object[] { 1, 2 };
+            immutableShift.Invoke(null, new object[] { input });
+            Assert.AreEqual(2, input.Length, "length should not change");
+            Assert.AreEqual(1, Convert.ToInt32(input.First()), "first element should not change");
+            Assert.AreEqual(2, Convert.ToInt32(input.Skip(1).First()), "second element should not change");
+        }
+        [Test]
+        public void ImmutableUnShiftExists()
+        {
+            Assert.IsNotNull(BagOfFunctionsType.GetMethod("ImmutableUnShift"));
+        }
+        [Test]
+        public void ImmutableUnShiftReturnsArrayWithElementAdded()
+        {
+            var immutableUnShift = BagOfFunctionsType.GetMethod("ImmutableUnShift");
+            var result = immutableUnShift.Invoke(null, new object[] { new object[] { 1, 2 }, 3 });
+            Assert.IsTrue(result is object[]);
+            Assert.AreEqual(3, (result as object[]).Length, "item should have been added");
+            Assert.AreEqual(3, (result as object[]).First(), "item should have been added as the first item");
+        }
+        [Test]
+        public void ImmutableUnShiftLeavesOriginalArrayIntact()
+        {
+            var immutableUnShift = BagOfFunctionsType.GetMethod("ImmutableUnShift");
+            var input = new object[] { 1, 2 };
+            immutableUnShift.Invoke(null, new object[] { input, 3 });
+            Assert.AreEqual(2, input.Length, "length should not change");
+            Assert.AreEqual(1, Convert.ToInt32(input.First()), "first element should not change");
+            Assert.AreEqual(2, Convert.ToInt32(input.Skip(1).First()), "second element should not change");
+        }
+        [Test]
+        public void IntersectionExists()
+        {
+            Assert.IsNotNull(BagOfFunctionsType.GetMethod("Intersection"));
+        }
+        [Test]
+        public void IntersectionReturnsIntersectionOfArrays()
+        {
+            var intersection = BagOfFunctionsType.GetMethod("Intersection");
+            var result = intersection.Invoke(null, new object[] { new object[] { 1, 2, 3 }, new object[] { 2, 3, 4 } });
+            Assert.AreEqual(2, (result as object[]).Length, "Expected two elements");
+            Assert.AreEqual(2, (result as object[]).First(), "item should have been added");
+            Assert.AreEqual(3, (result as object[]).Last(), "item should have been added as the first item");
+        }
+        [Test]
+        public void AddExists()
+        {
+            Assert.IsNotNull(BagOfFunctionsType.GetMethod("Add"));
+        }
+        [Test]
+        public void AddHasOneParameter()
+        {
+            Assert.AreEqual(1, BagOfFunctionsType.GetMethod("Add").GetParameters().Count());
+        }
+        [Test]
+        public void AddReturnsAFunction()
+        {
+            Assert.AreEqual(typeof(Func<decimal, decimal>), BagOfFunctionsType.GetMethod("Add").ReturnType);
+        }
+        [Test]
+        public void PassingNumberAReturnsFunctionThatTakesNumberBAndAddsAAndB()
+        {
+            var add = BagOfFunctionsType.GetMethod("Add");
+            var result = add.Invoke(null, new object[] {2m });
+            Assert.IsTrue(result is Func<decimal, decimal>);
+            var fResult = result as Func<decimal, decimal>;
+            var final = fResult(2m);
+            Assert.AreEqual(4, final);
         }
     }
 }
