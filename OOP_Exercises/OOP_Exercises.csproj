@@ -48,7 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
     <Compile Include="AccountTests.cs" />
+    <Compile Include="BagOfFunctions.cs" />
+    <Compile Include="BagOfFunctionsTests.cs" />
+    <Compile Include="Circle.cs" />
     <Compile Include="CircleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -132,6 +132,7 @@ namespace OOP_Exersizes
         {
             Assert.Throws<Exception>(() => GetAccount().TransferTo(GetAccount(), 10m));
         }
+        [Test]
         public void ToStringReturnsFormattedValue()
         {
             var acct = GetAccount();
